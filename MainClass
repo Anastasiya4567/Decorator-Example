@@ -1,0 +1,46 @@
+package DecoratorExample;
+
+interface Car {
+    void draw();
+}
+class SportCar implements Car {
+    public void draw() {
+        System.out.println("You bought a sport car");
+    }
+}
+class UsualCar implements Car {
+    public void draw() {
+        System.out.println("You bought a usual car");
+    }
+}
+abstract class CarDecorator implements Car {
+    protected Car decorated;
+    public CarDecorator(Car decorated){
+        this.decorated = decorated;
+    }
+    public void draw(){
+        decorated.draw();
+    }
+}
+class PinkCarDecorator extends CarDecorator {
+    public PinkCarDecorator(Car decorated) {
+        super(decorated);
+    }
+    public void draw() {
+        decorated.draw();
+        setColor();
+    }
+    private void setColor(){
+        System.out.println("It's color is pink");
+    }
+}
+
+public class MainClass {
+    public static void main(String[] args) {
+        Car sportCar = new SportCar();
+        Car pinkCar = new PinkCarDecorator(new UsualCar());
+        sportCar.draw();
+        System.out.println();
+        pinkCar.draw();
+    }
+}
